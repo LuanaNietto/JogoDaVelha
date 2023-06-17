@@ -3,11 +3,45 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title># Jogo da Velha #</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="description" content="Convide os amigos para jogar!!">
+    <meta name="language" content="Portuguese">
+    <link rel="stylesheet" href="./css/style.css">
+    
+    <title>Jogo da Velha</title>
 </head>
 <body>
-    <h1> Bem vindo ao jogo! </h1>
+    <main>
+        <h1>
+            <img src="/images/Jogo da velha.gif"></img>
+        </h1>
+        <div id="app">
+            <p v-if="game" class="players">
+                Jogadores: <strong>{{game._player1._name}}</strong>
+                Vs
+                <strong>{{game._player2._name}}</strong>
+            </p>
+            <p>{{message}}</p>
+
+            <div class="game" v-if="game">
+                <div class="board">
+                    <button v-for="cell in game._board._cells" @click="makeMove(cell)"
+                        :class="{'cellX': cell.symbol == 'X', 'cellO': cell.symbol == 'O' }">
+                        {{cell.symbol}}
+                    </button>
+                </div>
+                <button @click="resetGame()" class="btn shaky" v-if="game._gameOver">Jogar Novamente</button>
+            </div>
+
+            <div class="register" v-if="!game && !blockRegister">
+                <input type="text" v-model="playerName" placeholder="Insira seu nome de usuário..." required>
+                <button @click="startGame()" class="btn shaky">Jogar</button>
+            </div>
+        </div>
+    </main>
+
     <script src="/socket.io/socket.io.js"></script>
+    <script src="/vendor/vue/dist/vue.js"></script>
     <script src="./js/script.js" ></script>
 </body>
 </html>
