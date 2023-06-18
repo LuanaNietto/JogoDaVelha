@@ -2,7 +2,7 @@ import http from 'http'
 import express from 'express'
 import { Server } from 'socket.io'
 import ejs from 'ejs'
-import Player from './src/model/Player.js'
+import Player from './src/model/Jogadores.js'
 import Game from './src/model/Game.js'
 
 const app = express();

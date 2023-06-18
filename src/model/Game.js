@@ -1,4 +1,4 @@
-import Board from "./Board.js";
+import Board from "./Quadro.js";
 
 class Game {
   constructor(player1) {
