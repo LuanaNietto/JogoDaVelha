@@ -11,7 +11,9 @@ const server = http.Server(app).listen(4000);
 const io = new Server(server);
 const clients = {};
 
-app.use((req, res, next) => { //Cria um middleware onde todas as requests passam por ele 
+//  Cria uma função minddleware para cada conexão de entrada,
+//  verificando se é uma conexão http e redirecionando para a página do jogo.
+app.use((req, res, next) => { 
     if(req.headers["x-forwarder-proto"] == "http")
         res.redirect(`http://${req.headers.host}${req.url}`);
     else
@@ -19,7 +21,7 @@ app.use((req, res, next) => { //Cria um middleware onde todas as requests passam
 });
 
 app.use(express.static('./public'));
-app.use('/vendor', express.static('./node_modules'));
+app.use('/node', express.static('./node_modules'));
 
 app.set("views", "./public");
 app.set("view engine", "html");
@@ -30,7 +32,7 @@ app.get("/", (req, res) => {
 });
 
 const games = {};
-let unmatched = null;
+let existeJogador = null;
 
 io.on("connection", (socket) => {
     let id = socket.id;
@@ -87,15 +89,15 @@ io.on("connection", (socket) => {
 const join = (socket, data) => {
     const player = new Player(data.playerName, "X", socket.id);
 
-    if(unmatched) {
-        unmatched.player2 = player;
-        games[unmatched.player1.socketId] = unmatched;
-        games[unmatched.player2.socketId] = unmatched;
-        unmatched = null;
+    if(existeJogador) {
+        existeJogador.player2 = player;
+        games[existeJogador.player1.socketId] = existeJogador;
+        games[existeJogador.player2.socketId] = existeJogador;
+        existeJogador = null;
         
         return games[socket.id];
     }else {
-        unmatched = new Game(player);
-        return unmatched;
+        existeJogador = new Game(player);
+        return existeJogador;
     }
 }

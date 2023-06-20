@@ -1,5 +1,4 @@
-// const socket = io.connect(window.location.origin);
-// const Vue = window.vue;
+
 const app = new Vue({
     el: "#app",
     data: {
