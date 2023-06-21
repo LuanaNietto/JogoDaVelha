@@ -1,10 +1,10 @@
-import Board from "./Quadro.js";
+import Quadro from "./Quadro.js";
 
 class Game {
   constructor(player1) {
     this._player1 = player1;
     this._player2 = null;
-    this._board = new Board();
+    this._board = new Quadro();
     this._gameOver = null;
     this._winner = null;
     this._turnOf = "X";

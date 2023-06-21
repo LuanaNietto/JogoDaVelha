@@ -1,4 +1,4 @@
-class Board {
+class Quadro {
     constructor() {
       this._cells = [
         { symbol: null },
@@ -29,13 +29,8 @@ class Board {
   
     isGameOver() {
       const matches = ["XXX", "OOO"];
-  
-      const firstNull = this._cells.findIndex((cell) => cell.symbol == null);
-      if (firstNull == -1) {
-        return { gameOver: true, winner: null };
-      }
-  
-      const winningConditions = [
+
+      const condicoesVencedoras = [
         //Linhas
         this.cells[0].symbol + this.cells[1].symbol + this.cells[2].symbol,
         this.cells[3].symbol + this.cells[4].symbol + this.cells[5].symbol,
@@ -51,14 +46,14 @@ class Board {
         this.cells[6].symbol + this.cells[4].symbol + this.cells[2].symbol,
       ];
   
-      const winningCondition = winningConditions.find((condition) => {
+      const condicaoVencedora = condicoesVencedoras.find((condition) => {
         return condition == matches[0] || condition == matches[1];
       });
   
-      if (winningCondition) {
+      if (condicaoVencedora) {
         return {
           gameOver: true,
-          winner: winningCondition == matches[0] ? "X" : "O",
+          winner: condicaoVencedora == matches[0] ? "X" : "O",
         };
       }
   
@@ -66,8 +61,8 @@ class Board {
     }
   
     reset() {
-      this._cells.forEach((cell) => (cell.symbol = null));
+      this._cells.forEach((cell) => (cell.symbol = null)); //limpa as celulas para reiniciar o jogo
     }
   }
   
-  export default Board;
+  export default Quadro;

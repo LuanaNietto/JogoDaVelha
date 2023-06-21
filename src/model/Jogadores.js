@@ -1,4 +1,4 @@
-class Player {
+class Jogador {
     constructor(name, symbol, socketId) {
       this._name = name;
       this._symbol = symbol;
@@ -22,4 +22,4 @@ class Player {
     }
   }
   
-export default Player;
+export default Jogador;

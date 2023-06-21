@@ -2,7 +2,7 @@ import http from 'http'
 import express from 'express'
 import { Server } from 'socket.io'
 import ejs from 'ejs'
-import Player from './src/model/Jogadores.js'
+import Jogador from './src/model/Jogadores.js'
 import Game from './src/model/Game.js'
 
 const app = express();
@@ -87,7 +87,7 @@ io.on("connection", (socket) => {
 });
 
 const join = (socket, data) => {
-    const player = new Player(data.playerName, "X", socket.id);
+    const player = new Jogador(data.playerName, "X", socket.id);
 
     if(existeJogador) {
         existeJogador.player2 = player;
